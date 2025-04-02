@@ -1,7 +1,7 @@
 import 'dart:io';
 
 Future<void> create(String title, String org) async {
-  final command = 'flutter';
+  final command = Platform.isWindows ? 'flutter.bat' : 'flutter';
   final args = [
     'create',
     '--empty',
@@ -14,7 +14,7 @@ Future<void> create(String title, String org) async {
     title,
   ];
 
-  await Process.run(command, args);
+  await Process.run(command, args, runInShell: true);
 
   print('application creted');
   print('creating directories');
@@ -47,6 +47,4 @@ Future<void> create(String title, String org) async {
   Process.run(command, ['pub', 'add', 'bloc']);
 
   Process.run(command, ['pub', 'add', 'http']);
-
-  
 }
